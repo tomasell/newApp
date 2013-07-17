@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="spec/lib/jasmine-1.2.0/|spec/|js/" kind="src" path="platforms/android/assets/www"/>
+	<classpathentry kind="src" path="platforms/android/assets/www/js"/>
+	<classpathentry excluding="lib/jasmine-1.2.0/" kind="src" path="platforms/android/assets/www/spec"/>
+	<classpathentry kind="src" path="platforms/android/assets/www/spec/lib/jasmine-1.2.0"/>
+	<classpathentry kind="src" path="www/js"/>
+	<classpathentry excluding="lib/jasmine-1.2.0/" kind="src" path="www/spec"/>
+	<classpathentry kind="src" path="www/spec/lib/jasmine-1.2.0"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path=""/>
+</classpath>
