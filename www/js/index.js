@@ -18,8 +18,8 @@ function loadRepos() {
                       console.debug(value.number);
                       var tr1 = $('<tr></tr>');
                       tr1
-                          .append('<th><a href="http://10.0.10.67:8888//servicedesk/tickets/'
-                              + value.number + '.json/edit</a></th>');
+                          .append('<th>'
+                              + value.number + '</th>');
                       tr1.append('<td>' + value.company.name + '</td>');
                       tr1.append('<td>' + value.queue + '</td>');
                       tr1.append('<td>' + value.receiver.cn + '</td>');
