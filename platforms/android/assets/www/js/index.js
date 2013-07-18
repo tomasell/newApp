@@ -23,16 +23,37 @@ function loadRepos() {
 }
 
 $('#ticket').live('pageshow', function(event) {
-  var ticket= getUrlVars().ticket;
+  var ticket = getUrlVars().ticket;
   loadTicket(ticket);
 });
 
 function loadTicket(ticket) {
-  $.ajax('http://10.0.10.67:8888/servicedesk/tickets/'+ticket+'.json/edit').done(
-      function(ticket) {
-        $('#header').append('<h1>'+ticket.number+'</h1>');
-        $('#content').append('<textarea rows="4" cols="50" disabled>'+ticket.issue+'</textarea>');
-      });
+  $.ajax('http://10.0.10.67:8888/servicedesk/tickets/' + ticket + '.json/edit')
+      .done(
+          function(ticket) {
+            $('#header').append('<h1>' + ticket.number + '</h1>');
+            $('#content').append(
+                '<textarea rows="4" disabled>' + ticket.issue + '</textarea>');
+            $('#content').append('<dt>TIPOLOGIA</dt>');
+            var queue;
+            switch (ticket.queue) {
+            case 0:
+              queue = 'Unknown';
+            case 1:
+              queue = 'Collaboration Office';
+            case 2:
+              queue = 'Collaboration Enterprise';
+            case 3:
+              queue = 'Networking';
+            case 4:
+              queue = 'Ponti radio';
+            case 5:
+              queue = 'Wi-Fi';
+            case 6:
+              queue = 'Datacenter';
+            }
+            $('#content').append('<dd>' + queue + '</dd>');
+          });
 }
 
 function getUrlVars() {
