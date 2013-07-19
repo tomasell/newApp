@@ -125,13 +125,33 @@ function loadTicket(ticket) {
 function createNote(note, index) {
   var name = 'note' + index;
   var created = new Date(note.created.date);
-  $('#notes').append('<div id="' + name
-      + '" style="background-color: lightgoldenrodyellow;"></div>');
+  $('#notes').append(
+      '<div id="' + name
+          + '" style="background-color: lightgoldenrodyellow;"></div>');
   $('#' + name).append(
       '<dt>' + note.author.cn + ' il ' + created.getDate() + ' '
           + (months[created.getMonth() + 1]) + ' ' + created.getFullYear()
           + '</dt>');
-  $('#' + name).append('<dd><textarea disabled>' + note.text + '</textarea></dd>');
+  switch (note.currentStatus) {
+  case 1:
+    $('#' + name)
+        .append(
+            '<dd><label style="background-color: lightpink;">ASSEGNATO</label></dd>');
+    break;
+  case 2:
+    $('#' + name).append(
+        '<dd><textarea disabled>' + note.text + '</textarea></dd>');
+    break;
+  case 4:
+    $('#' + name)
+        .append(
+            '<dd><label style="background-color: lightgreen;">RISOLTO</label></dd>');
+    if (note.text) {
+      $('#' + name).append(
+          '<dd><textarea disabled>' + note.text + '</textarea></dd>');
+    }
+    break;
+  }
 }
 
 function getUrlVars() {
