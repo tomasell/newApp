@@ -6,23 +6,37 @@
 <meta name="format-detection" content="telephone=no" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="css/index.css" />
-<link rel="stylesheet" href="assets/jquery.mobile/jquery.mobile-1.3.1.min.css" />
+<link rel="stylesheet"
+ href="assets/jquery.mobile/jquery.mobile-1.3.1.min.css"
+/>
 <script src="assets/jquery/jquery-1.10.2.min.js"></script>
 <script src="assets/jquery.mobile/jquery.mobile-1.3.1.min.js"></script>
 
 <title>Ticketing</title>
 </head>
 <body>
- <div id="reposHome" data-role="page">
-  <div data-role="header" data-position="fixed">
+ <div data-role="page" id="reposHome">
+
+  <div data-role="header" data-position="fixed" id="deviceready">
    <h1>Dashboard</h1>
+   <div data-role='navbar'>
+    <ul>
+     <li><a href="#mymenu" data-inline='true' data-icon="grid">Menu</a></li>
+     <li><a href="#popupMenu" data-rel="popup" data-icon="gear">Options</a></li>
+     <li><a href="#searchpanel" data-inline='true'
+      data-icon="search"
+     >Search</a></li>
+    </ul>
+   </div>
   </div>
+
   <div data-role="content">
    <table id="dashboard" data-role="table" data-mode="columntoggle"
-    class="ui-responsive table-stroke" data-filter="true">
+    class="ui-responsive table-stroke" data-filter="true"
+   >
     <thead>
      <tr>
-      <th data-priority="0">Number</th>
+      <th>Number</th>
       <th data-priority="1">Company</th>
       <th data-priority="2">Queue</th>
       <th data-priority="3">Receiver</th>
@@ -32,6 +46,68 @@
     </tbody>
    </table>
   </div>
+
+  <div data-role='panel' id='searchpanel' data-position='right'
+   data-position-fixed='true' data-display='overlay'
+  >
+   <div data-role="collapsible-set" data-theme="c"
+    data-content-theme="d"
+   >
+    <div data-role="collapsible">
+     <h3>Ticket</h3>
+     <form>
+      <fieldset>
+       <label for="text-basic">Number</label> <input
+        name="search[number]" id="text-basic" type="number"
+       > <label for="select-choice-a" class="select">Status</label> 
+       <select
+        name="search[status]" id="select-choice-a"
+        data-native-menu="false"
+       >
+        <option value="new">New</option>
+        <option value="assignee">Assignee</option>
+        <option value="working">Working</option>
+        <option value="pending">Pending</option>
+       </select> 
+       <label for="select-choice-8" class="select">Queue</label> 
+       <select
+        name="select-choice-8" id="select-choice-8" multiple="multiple"
+        data-native-menu="false" data-icon="grid" data-iconpos="left"
+       >
+        <option selected></option>
+        <option value="collaborationoffice">Collaboration office</option>
+        <option value="collaborationenterprice">Collaboration enterprice</option>
+        <option value="overnight">Overnight</option>
+        <optgroup label="Networks & Systems">
+         <option value="networking">Networking</option>
+         <option value="pontiradio">Ponti radio</option>
+         <option value="wifi">Wi-Fi</option>
+         <option value="datacenter">Datacenter</option>
+        </optgroup>
+       </select>
+      </fieldset>
+      <a type='submit' id="ticketSearch" data-role="button"
+       data-icon="search"
+      >Search</a>
+     </form>
+    </div>
+    <div data-role="collapsible">
+     <h3>Company</h3>
+     <form>
+      <label for="text-basic">Company</label> <input type="search"
+       name="text-basic" id="text-basic" value=""
+      > <label for="text-basic">Address</label> <input type="search"
+       name="text-basic" id="text-basic" value=""
+      > <label for="text-basic">City</label> <input type="search"
+       name="text-basic" id="text-basic" value=""
+      > <a type='submit' id="companySearch" data-role="button"
+       data-icon="search"
+      >Cerca</a>
+     </form>
+    </div>
+   </div>
+  </div>
+
  </div>
  <script type="text/javascript" src="phonegap.js"></script>
  <script type="text/javascript" src="js/index.js"></script>

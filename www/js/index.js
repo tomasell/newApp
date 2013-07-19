@@ -154,6 +154,13 @@ function createNote(note, index) {
   }
 }
 
+$(document).on('click','#ticketSearch', function(event) {
+  var vars = getUrlVars();
+  console.debug(vars);
+});
+
+
+
 function getUrlVars() {
   var vars = [], hash;
   var hashes = window.location.href
