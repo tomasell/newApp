@@ -39,7 +39,7 @@ function loadRepos() {
       });
 }
 
-$('#ticket').live('pageshow', function(event) {
+$('#ticket').live('pagebeforeshow', function(event) {
   var ticket = getUrlVars().ticket;
   loadTicket(ticket);
 });
