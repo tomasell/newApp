@@ -1,3 +1,6 @@
+var months = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept',
+    'Oct', 'Nov', 'Dec' ];
+
 $('#reposHome').bind('pageinit', function(event) {
   $.mobile.allowCrossDomainPages = true;
   $.support.cors = true;
@@ -25,7 +28,11 @@ function loadRepos() {
               + '" data-transition="slide">' + value.number + '</a></th>');
           tr1.append('<td>' + value.company.name + '</td>');
           tr1.append('<td>' + value.queue + '</td>');
-          tr1.append('<td>' + value.receiver.cn + '</td>');
+          if (value.receiver) {
+            tr1.append('<td>' + value.receiver.cn + '</td>');
+          } else {
+            tr1.append('<td></td>');
+          }
           tbody.append(tr1);
         });
         $('#dashboard').table('refresh');
@@ -49,8 +56,10 @@ function loadTicket(ticket) {
             ticket = ticket[0];
             agents = jQuery.parseJSON(agents[0]);
             $('#header').append('<h1>' + ticket.number + '</h1>');
-            $('#content').append(
-                '<textarea rows="4" disabled>' + ticket.issue + '</textarea>');
+            $('#content')
+                .append(
+                    '<textarea id="issue" disabled>' + ticket.issue
+                        + '</textarea>');
             $('#content').append('<dt>TIPOLOGIA</dt>');
             $('#content').append(
                 '<dd><select id = "queue" placeholder value></select></dd>');
@@ -64,30 +73,65 @@ function loadTicket(ticket) {
                     '<option value ="' + i + '">' + value + '</option>');
               }
             });
-            $('#content').append('<dt>RICEVUTO</dt>');
+            var received = new Date(ticket.received.date);
+            $('#content').append(
+                '<dt>RICEVUTO il ' + received.getDate() + ' '
+                    + (months[received.getMonth() + 1]) + ' '
+                    + received.getFullYear() + '</dt>');
             $('#content').append(
                 '<dd><select id = "receiver" placeholder value></select></dd>');
+            $('#receiver').append('<option value =""></option>');
             var agentHref = '{"_class":"BEST\\SAIV\\User\\Model","_key":{"cn":"%s"}}';
             $.each(agents, function(i, agent) {
-              if (ticket.receiver) {
-                if (agent.cn == ticket.receiver.cn) {
-                  $('#receiver').append(
-                      '<option value ="' + sprintf(agentHref, agent.cn)
-                          + '" selected>' + agent.cn + '</option>');
-                } else {
-                  $('#receiver').append(
-                      '<option value ="' + sprintf(agentHref, agent.cn) + '">'
-                          + agent.cn + '</option>');
-                }
+              if (ticket.receiver && agent.cn == ticket.receiver.cn) {
+                $('#receiver').append(
+                    '<option value ="' + sprintf(agentHref, agent.cn)
+                        + '" selected>' + agent.cn + '</option>');
+              } else {
+                $('#receiver').append(
+                    '<option value ="' + sprintf(agentHref, agent.cn) + '">'
+                        + agent.cn + '</option>');
               }
             });
-            $('#content').append('<dt>ASSEGNATO</dt>');
-            if (!ticket.assignee)
-              $('#content').append('<dd>nessuno</dd>');
-            else
-              $('#content').append('<dd>' + ticket.assignee.cn + '</dd>');
-
+            if (ticket.assigned) {
+              var assigned = new Date(ticket.assigned.date);
+              $('#content').append(
+                  '<dt>ASSEGNATO il ' + assigned.getDate() + ' '
+                      + (months[assigned.getMonth() + 1]) + ' '
+                      + assigned.getFullYear() + '</dt>');
+            } else {
+              $('#content').append('<dt>ASSEGNATO</dt>');
+            }
+            $('#content').append(
+                '<dd><select id = "assignee" placeholder value></select></dd>');
+            $('#assignee').append('<option value =""></option>');
+            $.each(agents, function(i, agent) {
+              if (ticket.assignee && agent.cn == ticket.assignee.cn) {
+                $('#assignee').append(
+                    '<option value ="' + sprintf(agentHref, agent.cn)
+                        + '" selected>' + agent.cn + '</option>');
+              } else {
+                $('#assignee').append(
+                    '<option value ="' + sprintf(agentHref, agent.cn) + '">'
+                        + agent.cn + '</option>');
+              }
+            });
+            $.each(ticket.notes, function(i, note) {
+              createNote(note, i);
+            });
           });
+}
+
+function createNote(note, index) {
+  var name = 'note' + index;
+  var created = new Date(note.created.date);
+  $('#notes').append('<div id="' + name
+      + '" style="background-color: lightgoldenrodyellow;"></div>');
+  $('#' + name).append(
+      '<dt>' + note.author.cn + ' il ' + created.getDate() + ' '
+          + (months[created.getMonth() + 1]) + ' ' + created.getFullYear()
+          + '</dt>');
+  $('#' + name).append('<dd><textarea disabled>' + note.text + '</textarea></dd>');
 }
 
 function getUrlVars() {

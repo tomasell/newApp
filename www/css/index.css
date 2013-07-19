@@ -121,5 +121,6 @@ h1 {
 dt {
 margin: 25px 0 15px 0;
 background-color: #ddd;
-font-weight: normal;
+font-weight: bold;
+font-size: 14px;
 }
