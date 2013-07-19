@@ -25,7 +25,7 @@ function loadRepos() {
         $.each(result.values, function(index, value) {
           var tr1 = $('<tr></tr>');
           tr1.append('<th><a href="views/ticket.html?ticket=' + value.number
-              + '" data-transition="slide">' + value.number + '</a></th>');
+              + '" data-transition="flip">' + value.number + '</a></th>');
           tr1.append('<td>' + value.company.name + '</td>');
           tr1.append('<td>' + value.queue + '</td>');
           if (value.receiver) {
@@ -58,8 +58,8 @@ function loadTicket(ticket) {
             $('#header').append('<h1>' + ticket.number + '</h1>');
             $('#content')
                 .append(
-                    '<textarea id="issue" disabled>' + ticket.issue
-                        + '</textarea>');
+                    '<div class="ui-grid-solo"><div class="ui-block-a"><textarea id="issue" readonly>'
+                        + ticket.issue + '</textarea></div></div>');
             $('#content').append('<dt>TIPOLOGIA</dt>');
             $('#content').append(
                 '<dd><select id = "queue" placeholder value></select></dd>');
