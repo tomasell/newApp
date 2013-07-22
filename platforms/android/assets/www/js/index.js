@@ -18,7 +18,7 @@ Queue = {
 };
 
 function loadRepos() {
-  $.ajax('http://10.0.10.66:8888/servicedesk/frontend.json').then(
+  $.ajax('http://10.0.10.67:8888/servicedesk/frontend.json').then(
       function(result) {
         var table = $('#dashboard');
         var tbody = $(table[0].tBodies);
@@ -136,6 +136,13 @@ function loadTicket(ticket) {
           }, function(err) {
             alert(err.statusText);
             parent.history.back();
+          }, function() {
+            $.mobile.loading( 'show', {
+              text: 'foo',
+              textVisible: true,
+              theme: 'z',
+              html: ""
+            });
           });
 }
 

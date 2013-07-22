@@ -136,6 +136,13 @@ function loadTicket(ticket) {
           }, function(err) {
             alert(err.statusText);
             parent.history.back();
+          }, function() {
+            $.mobile.loading( 'show', {
+              text: 'foo',
+              textVisible: true,
+              theme: 'z',
+              html: ""
+            });
           });
 }
 
