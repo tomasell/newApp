@@ -18,14 +18,14 @@ Queue = {
 };
 
 function loadRepos() {
-  $.ajax('http://10.0.10.67:8888/servicedesk/frontend.json').done(
+  $.ajax('http://10.0.10.67:8888/servicedesk/frontend.json').then(
       function(result) {
         var table = $('#dashboard');
         var tbody = $(table[0].tBodies);
         $.each(result.values, function(index, value) {
           var tr1 = $('<tr></tr>');
           tr1.append('<th><a href="views/ticket.html?ticket=' + value.number
-              + '" data-transition="flip">' + value.number + '</a></th>');
+              + '" data-transition="slide">' + value.number + '</a></th>');
           tr1.append('<td>' + value.company.name + '</td>');
           tr1.append('<td>' + value.queue + '</td>');
           if (value.receiver) {
@@ -36,6 +36,9 @@ function loadRepos() {
           tbody.append(tr1);
         });
         $('#dashboard').table('refresh');
+      },function(error){
+        //TODO add button reload
+        
       });
 }
 
