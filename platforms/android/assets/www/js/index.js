@@ -18,7 +18,7 @@ Queue = {
 };
 
 function loadRepos() {
-  $.ajax('http://10.0.10.67:8888/servicedesk/frontend.json').then(
+  $.ajax('http://10.0.10.66:8888/servicedesk/frontend.json').then(
       function(result) {
         var table = $('#dashboard');
         var tbody = $(table[0].tBodies);
@@ -27,7 +27,7 @@ function loadRepos() {
           tr1.append('<th><a href="views/ticket.html?ticket=' + value.number
               + '" data-transition="slide">' + value.number + '</a></th>');
           tr1.append('<td>' + value.company.name + '</td>');
-          tr1.append('<td>' + value.queue + '</td>');
+          tr1.append('<td>' + Queue[value.queue] + '</td>');
           if (value.receiver) {
             tr1.append('<td>' + value.receiver.cn + '</td>');
           } else {
@@ -36,16 +36,27 @@ function loadRepos() {
           tbody.append(tr1);
         });
         $('#dashboard').table('refresh');
-      },function(error){
-        //TODO add button reload
-        
+      }, function(err) {
+        alert(err.statusText);
       });
 }
 
-$(document).on('pagebeforeshow','#ticket', function(event) {
+// $(document).on('pagebeforecreate', '#ticket', function(event) {
+// });
+//
+// $(document).on('pagecreate', '#ticket', function(event) {
+// });
+//
+// $(document).on('pageinit', '#ticket', function(event) {
+// });
+
+$(document).on('pagebeforeshow', '#ticket', function(event) {
   var ticket = getUrlVars().ticket;
   loadTicket(ticket);
 });
+
+// $(document).on('pageshow', '#ticket', function(event) {
+// });
 
 function loadTicket(ticket) {
   array = [];
@@ -122,6 +133,9 @@ function loadTicket(ticket) {
             $.each(ticket.notes, function(i, note) {
               createNote(note, i);
             });
+          }, function(err) {
+            alert(err.statusText);
+            parent.history.back();
           });
 }
 
@@ -157,12 +171,10 @@ function createNote(note, index) {
   }
 }
 
-$(document).on('click','#ticketSearch', function(event) {
+$(document).on('click', '#ticketSearch', function(event) {
   var vars = getUrlVars();
   console.debug(vars);
 });
-
-
 
 function getUrlVars() {
   var vars = [], hash;

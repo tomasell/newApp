@@ -15,7 +15,7 @@
 <title>Ticketing</title>
 </head>
 <body>
- <div data-role="page" id="reposHome">
+ <div data-role="page" id="reposHome" data-dom-cache="true">
 
   <div data-role="header" data-position="fixed" id="deviceready">
    <h1>Dashboard</h1>
@@ -59,8 +59,7 @@
       <fieldset>
        <label for="text-basic">Number</label> <input
         name="search[number]" id="text-basic" type="number"
-       > <label for="select-choice-a" class="select">Status</label> 
-       <select
+       > <label for="select-choice-a" class="select">Status</label> <select
         name="search[status]" id="select-choice-a"
         data-native-menu="false"
        >
@@ -68,15 +67,15 @@
         <option value="assignee">Assignee</option>
         <option value="working">Working</option>
         <option value="pending">Pending</option>
-       </select> 
-       <label for="select-choice-8" class="select">Queue</label> 
-       <select
+       </select> <label for="select-choice-8" class="select">Queue</label> <select
         name="select-choice-8" id="select-choice-8" multiple="multiple"
         data-native-menu="false" data-icon="grid" data-iconpos="left"
        >
         <option selected></option>
-        <option value="collaborationoffice">Collaboration office</option>
-        <option value="collaborationenterprice">Collaboration enterprice</option>
+        <option value="collaborationoffice">Collaboration
+         office</option>
+        <option value="collaborationenterprice">Collaboration
+         enterprice</option>
         <option value="overnight">Overnight</option>
         <optgroup label="Networks & Systems">
          <option value="networking">Networking</option>
